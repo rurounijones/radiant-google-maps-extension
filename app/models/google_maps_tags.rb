@@ -23,7 +23,7 @@ module GoogleMapsTags
     return "<p>No map found with the name '#{tag.attr['name']}'</p>" if @stored_map == nil
     @map = GMap.new(tag.attr['div'])
     @map.control_init(:large_map => true,:map_type => true)
-	  @map.center_zoom_init([@stored_map.center.x,-@stored_map.center.y],@stored_map.zoom)
+	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
     @map.to_html
   end
 

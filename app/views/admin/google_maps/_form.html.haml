@@ -1,0 +1,41 @@
+- form_for [:admin, @google_map] do |f|
+  .form-area
+    %p.title
+      %label{:for=>"google_map_name"}
+        Name
+      = f.text_field :name, :class => 'textbox', :maxlength => 100
+    %div.row
+      %table.fieldset
+        %tr
+          %th.label
+            %label{:for => "google_map_description"} Description
+          %td.field
+            = f.text_field :description, :class => 'textbox', :maxlength => 100
+        %tr
+          %th.label
+            %label{:for => "google_map_latitude"} Latitude
+          %td.field
+            - if @google_map.center.nil?
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100
+            - else
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100, :value => @google_map.center.y
+        %tr
+          %th.label
+            %label{:for => "google_map_longitude"} Longitude
+          %td.field
+            - if @google_map.center.nil?
+              = f.text_field :longitude, :class => 'textbox', :maxlength => 100
+            - else
+              = f.text_field :longitude, :class => 'textbox', :maxlength => 100, :value => @google_map.center.x
+        %tr
+          %th.label
+            %label{:for => "google_map_zoom"} Zoom level
+          %td.field
+            = f.text_field :zoom, :class => 'textbox', :maxlength => 100
+    = updated_stamp @google_map
+
+  %p.buttons
+    = save_model_button(@google_map)
+    = save_model_and_continue_editing_button(@google_map)
+    or
+    = link_to 'Cancel', admin_google_maps_url

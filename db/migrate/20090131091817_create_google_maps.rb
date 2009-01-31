@@ -5,7 +5,10 @@ class CreateGoogleMaps < ActiveRecord::Migration
       t.string :description
       t.column "center", :point, :null => false
       t.integer :zoom
-      t.timestamps
+      t.datetime :created_at
+      t.datetime :updated_at
+      t.integer :created_by
+      t.integer :updated_by
     end
   end
 
