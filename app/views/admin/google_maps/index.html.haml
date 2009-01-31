@@ -1,0 +1,15 @@
+%h1 Google Maps
+%p Here you can edit your google maps
+
+%table.index
+  %thead
+    %tr
+      %th Name
+      %th Description
+  %tbody
+  - @google_maps.each do |google_map|
+    %tr
+      %td= link_to(google_map.name, admin_google_map_path(google_map))
+      %td= google_map.description
+
+%p= link_to ( image("new-map", :alt => "New map"), new_admin_google_map_path)
