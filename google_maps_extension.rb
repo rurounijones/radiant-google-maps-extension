@@ -4,7 +4,7 @@
 class GoogleMapsExtension < Radiant::Extension
   version "0.1"
   description "Allows you to embed google maps in your site"
-  url "http://github.com/RurouniJones/radiant-google-maps-extension/"
+  url "http://github.com/rurounijones/radiant-google-maps-extension/"
   
   # define_routes do |map|
   #   map.namespace :admin, :member => { :remove => :get } do |admin|
@@ -14,10 +14,11 @@ class GoogleMapsExtension < Radiant::Extension
   
   def activate
     admin.tabs.add "Maps", "/admin/google_maps", :after => "Layouts", :visibility => [:all]
+    Page.send :include, GoogleMapsTags
   end
   
   def deactivate
-    # admin.tabs.remove "Google Maps"
+    # admin.tabs.remove "Maps"
   end
   
 end

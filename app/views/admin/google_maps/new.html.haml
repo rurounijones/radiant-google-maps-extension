@@ -1,0 +1,22 @@
+%h1 New Google Map
+%p Create a new Google map
+
+- form_for @google_map, :url => admin_google_maps_path do |f|
+  %p
+    %label{:for => 'google_map_name'} Name:
+    =f.text_field :name
+  %p
+    %label{:for => 'google_map_description'} Description:
+    =f.text_field :description
+  %fieldset
+    %legend Map Center
+    %p
+      %label{:for => 'google_map_latitude'} Latitude:
+      =f.text_field :latitude
+    %p
+      %label{:for => 'google_map_longitude'} Longitude:
+      =f.text_field :longitude
+  %p
+    %label{:for => 'google_map_zoom'} Zoom Level:
+    =f.text_field :zoom
+  =submit_tag "Create"

@@ -1,0 +1,24 @@
+%h1
+  Edit
+  = @google_map.name
+%p Edit your existing Google map
+
+- form_for @google_map, :url => admin_google_map_path(@google_map) do |f|
+  %p
+    %label{:for => 'google_map_name'} Name:
+    =f.text_field :name
+  %p
+    %label{:for => 'google_map_description'} Description:
+    =f.text_field :description
+  %fieldset
+    %legend Map Center
+    %p
+      %label{:for => 'google_map_latitude'} Latitude:
+      =f.text_field :latitude, :value => @google_map.center.y
+    %p
+      %label{:for => 'google_map_longitude'} Longitude:
+      =f.text_field :longitude, :value => @google_map.center.x
+  %p
+    %label{:for => 'google_map_zoom'} Zoom Level:
+    =f.text_field :zoom
+  =submit_tag "Edit"

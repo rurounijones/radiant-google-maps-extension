@@ -4,7 +4,8 @@ class GoogleMap < ActiveRecord::Base
   attr_accessor :latitude, :longitude
 
   validates_presence_of :name, :description, :center, :zoom, :latitude, :longitude
-  validates_numericality_of :latitude, :longitude, :zoom
+  validates_uniqueness_of :name
+  validates_numericality_of :zoom #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
   
 
   private
