@@ -1,0 +1,41 @@
+- form_for [:admin, @google_map, @marker] do |f|
+  = f.hidden_field :google_map_id, :class => 'textbox', :maxlength => 100, :value => @google_map.id
+  .form-area
+    %p.title
+      %label{:for=>"marker_name"}
+        Name
+      = f.text_field :name, :class => 'textbox', :maxlength => 100
+    %div.row
+      %table.fieldset
+        %tr
+          %th.label
+            %label{:for => "marker_title"} Title
+          %td.field
+            = f.text_field :title, :class => 'textbox', :maxlength => 100
+        %tr
+          %th.label
+            %label{:for => "marker_latitude"} Latitude
+          %td.field
+            - if @marker.position.nil?
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100
+            - else
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.y
+        %tr
+          %th.label
+            %label{:for => "marker_longitude"} Longitude
+          %td.field
+            - if @marker.position.nil?
+              = f.text_field :longitude, :class => 'textbox', :maxlength => 100
+            - else
+              = f.text_field :longitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.x
+    %p.content
+      %label{:for=>"marker_content"} Content
+      ~ f.text_area :content, :class => "textarea", :style => "width: 100%"
+
+    = updated_stamp @marker
+
+  %p.buttons
+    = save_model_button(@marker)
+    = save_model_and_continue_editing_button(@marker)
+    or
+    = link_to 'Cancel', admin_google_map_url(@google_map)

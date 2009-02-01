@@ -19,12 +19,9 @@ module GoogleMapsTags
   tag('google_map:create') do |tag|
     raise TagError.new("`google_map:display' tag must contain a `div' attribute.") unless tag.attr.has_key?('div')
     raise TagError.new("`google_map:display' tag must contain a `name' attribute.") unless tag.attr.has_key?('name')
-    @stored_map = GoogleMap.find_by_name(tag.attr['name'])
-    return "<p>No map found with the name '#{tag.attr['name']}'</p>" if @stored_map == nil
-    @map = GMap.new(tag.attr['div'])
-    @map.control_init(:large_map => true,:map_type => true)
-	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
-    @map.to_html
+
+    GoogleMap.generate_html(tag.attr['name'],tag.attr['div'])
+
   end
 
 end

@@ -1,0 +1,19 @@
+%h1 Remove Marker
+
+%p 
+  Are you sure you want to 
+  %strong.warning permanently remove
+  the following marker?
+
+%table.index#markers{:cellpadding=>0, :cellspacing=>0, :border=>0}
+  %tbody
+    %tr.node.level-1
+      %td.marker
+        = image('map', :alt => "map-icon")
+        %span.title= @marker.name
+
+- form_for [:admin, @google_map, @marker], :html => {:method => :delete} do
+  %p.buttons
+    %input.button{:type=>"submit", :value=>"Delete Marker"}/
+    or
+    = link_to 'Cancel', admin_google_map_url(@google_map)

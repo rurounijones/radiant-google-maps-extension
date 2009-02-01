@@ -38,4 +38,7 @@
     = save_model_button(@google_map)
     = save_model_and_continue_editing_button(@google_map)
     or
-    = link_to 'Cancel', admin_google_maps_url
+    - if @google_map.id.nil?
+      = link_to 'Cancel', admin_google_maps_url
+    - else
+      = link_to 'Cancel', admin_google_map_url(@google_map)

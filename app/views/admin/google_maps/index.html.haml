@@ -12,8 +12,8 @@
     %tr{:class => "node level-1"}
       %td.snippet
         = image('map', :alt => "map-icon")
-        = link_to(google_map.name, edit_admin_google_map_path(google_map))
+        = link_to(google_map.name, admin_google_map_url(google_map))
       %td= google_map.description
-      %td.remove= link_to(image_tag('admin/remove.png'), remove_admin_google_map_path(google_map))
+      %td.remove= link_to(image_tag('admin/remove.png'), remove_admin_google_map_url(google_map))
 
-%p= link_to ( image("new-map", :alt => "New map"), new_admin_google_map_path)
+%p= link_to ( image("new-map", :alt => "New map"), new_admin_google_map_url)
