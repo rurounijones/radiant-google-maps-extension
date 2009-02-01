@@ -11,12 +11,12 @@
   - @google_map.markers.each do |marker|
     %tr{:class => "node level-1"}
       %td.snippet
-        = image('map', :alt => "map-icon")
+        = image('marker', :alt => "marker-icon")
         = link_to(marker.name, edit_admin_google_map_marker_url(@google_map, marker))
       %td.remove= link_to(image_tag('admin/remove.png'), remove_admin_google_map_marker_url(@google_map,marker))
 
 %p
-  = link_to ( image("new-map", :alt => "Edit map"), edit_admin_google_map_url(@google_map))
+  = link_to ( image("edit-map", :alt => "Edit map"), edit_admin_google_map_url(@google_map))
   or
   = link_to ( "Cancel", admin_google_maps_url)
 

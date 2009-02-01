@@ -9,7 +9,7 @@
   %tbody
     %tr.node.level-1
       %td.marker
-        = image('map', :alt => "map-icon")
+        = image('marker', :alt => "marker-icon")
         %span.title= @marker.name
 
 - form_for [:admin, @google_map, @marker], :html => {:method => :delete} do

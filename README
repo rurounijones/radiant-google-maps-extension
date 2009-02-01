@@ -1,3 +1,42 @@
-= Google Maps
+Google Maps Extension
+---
 
-This extension is early in development and is not suitable for testing / production use yet.
+This extension allows users to create google maps and the other objects which make up an interactive google map.
+
+Currently very basic and not intended for production use.
+
+###Requirements
+
+You need to install a version >= 0.1.1 of the GeoRuby gem (http://rubyforge.org/projects/georuby/)
+	gem install georuby
+
+###Installation
+
+After downloading the extension create a file called "gmaps_api_key.yml" in your RAILS_ROOT/config directory and edit it as required for your site. Then run
+
+  rake production db:migrate:extensions
+  rake production radiant:extensions:google_maps:update
+
+###Usage
+
+Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects
+
+###Tags
+
+Two tags are created by the extension
+
+<r:google_map:header /> should be places in the <head> section of your page. This Radius tag creates the HTML JavaScript include tag with your API key necessary to run a google map.
+
+<google_map:create name="Map Name" div="Div ID" />
+
+This can be placed anywhere in your document. The "name" attribute is the name of the map you wish to create and the "div" attribute is the html ID of the div you wish to generate the map in.
+
+Note that this extension does not create or size the div. This is left to the user for easier placement and sizing of div using CSS.
+
+###Thanks - Standing on the shoulders of giants
+
+Sean Cribbs and the rest of the Radiant devs for continuing Radiant development and giving us a great CMS.
+The makers of GeoRuby
+The makers of YM4R for making it easy to embed google maps into ruby on rails apps.
+The makers of the spatial adapter plugin
+
