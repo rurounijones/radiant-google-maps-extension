@@ -16,8 +16,9 @@ class Admin::MarkersController < Admin::ResourceController
 
   def create
     @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = Marker.new(nil)
-    @marker.update_attributes!(params[:marker])
+    @marker = Marker.new(params[:marker])
+    @marker.created_by_id = current_user
+    @marker.save
     announce_saved
     response_for :create
   end
@@ -30,6 +31,7 @@ class Admin::MarkersController < Admin::ResourceController
   def update
     @google_map = GoogleMap.find(params[:google_map_id])
     @marker = @google_map.markers.find(params[:id])
+    @marker.updated_by_id = current_user
     @marker.update_attributes!(params[:marker])
     announce_saved
     response_for :update

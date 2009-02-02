@@ -8,8 +8,8 @@ class CreateMarkers < ActiveRecord::Migration
       t.column "position", :point, :null => false
       t.datetime :created_at
       t.datetime :updated_at
-      t.integer :created_by
-      t.integer :updated_by
+      t.integer :created_by_id
+      t.integer :updated_by_id
     end
   end
 
