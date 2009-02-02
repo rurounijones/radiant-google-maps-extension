@@ -17,6 +17,7 @@
 
 %p
   = link_to ( image("edit-map", :alt => "Edit map"), edit_admin_google_map_url(@google_map))
+  = link_to ( image("new-marker", :alt => "New Marker"), new_admin_google_map_marker_url(@google_map))
   or
-  = link_to ( "Cancel", admin_google_maps_url)
+  = link_to ( "Back", admin_google_maps_url)
 
