@@ -1,9 +1,19 @@
 Google Maps Extension
----
 
-This extension allows users to create google maps and the other objects which make up an interactive google map.
+### Introduction
 
-Currently very basic and not intended for production use.
+This extension allows users to create google maps and the other objects which make up an modern interactive google map.
+It ONLY works with MySQL and PostgreSQL databases (and will for the forseeable future).
+
+HERE BE DRAGONS
+
+"Why", do you ask?
+
+1, This is my first ever Radiant extension
+2. In terms of Red-Green-Refactor this extension is somewhere in the region of a dark crimson... blood red, if you will.
+3. It passes all tests...because there aren't any.
+
+Now if that hasn't frightened you off, by all means read on.
 
 ###Requirements
 
@@ -12,14 +22,17 @@ You need to install a version >= 0.1.1 of the GeoRuby gem (http://rubyforge.org/
 
 ###Installation
 
-After downloading the extension create a file called "gmaps_api_key.yml" in your RAILS_ROOT/config directory and edit it as required for your site. Then run
+After downloading the extension run the following commands
 
-  rake production db:migrate:extensions
+  rake radiant:extensions:google_maps:api <- THIS MUST BE RUN FIRST (Or manually copy and rename the API key file)
+  rake production radiant:extensions:google_maps:migrate
   rake production radiant:extensions:google_maps:update
+
+After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost)
 
 ###Usage
 
-Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects
+Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects (Currently only GMarkers)
 
 ###Tags
 
@@ -35,8 +48,9 @@ Note that this extension does not create or size the div. This is left to the us
 
 ###Thanks - Standing on the shoulders of giants
 
-Sean Cribbs and the rest of the Radiant devs for continuing Radiant development and giving us a great CMS.
+The Radiant devs for continuing Radiant development and giving us a great CMS.
+Sean Cribbs for, as well as the above, putting up with my inane, easily answered questions in IRC.
 The makers of GeoRuby
 The makers of YM4R for making it easy to embed google maps into ruby on rails apps.
 The makers of the spatial adapter plugin
-
+Everyone else involved in computer development down to Charles Babbage

@@ -1,7 +1,16 @@
 namespace :radiant do
   namespace :extensions do
     namespace :google_maps do
-      
+
+      desc "Copies sample API key file of the Google Maps extension to the instance config/ directory."
+      task :api do
+        puts "Copying API key file from GoogleMapsExtension"
+        # Can't init the environment because the YM4R plugin complains about missing key file (which this
+        # task is creating). Therefore we can't use the GoogleMapsExtension.root constant to determine the path...
+        # soooo lets hardcode it (What could possibly go wrong?)
+        cp "#{RAILS_ROOT}/vendor/extensions/google_maps/gmaps_api_key.yml.sample", RAILS_ROOT + '/config/gmaps_api_key.yml'
+      end
+
       desc "Runs the migration of the Google Maps extension"
       task :migrate => :environment do
         require 'radiant/extension_migrator'
