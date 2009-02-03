@@ -3,7 +3,7 @@ Google Maps Extension
 ### Introduction
 
 This extension allows users to create google maps and the other objects which make up an modern interactive google map.
-It ONLY works with MySQL and PostgreSQL databases (and will for the forseeable future).
+It ONLY works with MySQL and PostgreSQL databases (and will for the forseeable future, depends on the spatial adapter).
 
 This has been unscientifically tested against Radiant edge (>7.0) with MySQL.
 
@@ -35,7 +35,7 @@ After downloading the extension run the following commands
 
 After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost)
 
-Add the following lines to your admin routes inside the :admin namespace
+Add the following lines to your admin routes inside the RESTful :admin namespace
 
        admin.resources :google_maps do |google_map|
          google_map.resources :markers, ::member => { :remove => :get }
@@ -43,7 +43,8 @@ Add the following lines to your admin routes inside the :admin namespace
 
 ###Usage
 
-Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects (Currently only GMarkers)
+Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects (Currently only GMarkers).
+Marker content can use filters and Radius tags.
 
 ###Tags
 
@@ -51,7 +52,7 @@ Two tags are created by the extension
 
 <r:google_map:header /> should be places in the <head> section of your page. This Radius tag creates the HTML JavaScript include tag with your API key necessary to run a google map.
 
-<google_map:create name="Map Name" div="Div ID" />
+<google_map:generate name="Map Name" div="Div ID" />
 
 This can be placed anywhere in your document. The "name" attribute is the name of the map you wish to create and the "div" attribute is the html ID of the div you wish to generate the map in.
 

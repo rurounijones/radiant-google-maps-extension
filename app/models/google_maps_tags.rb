@@ -16,11 +16,11 @@ module GoogleMapsTags
   desc %{
     Generates the named google map in the using the div name specified. The div will need to be sized using CSS.
   }
-  tag('google_map:create') do |tag|
+  tag('google_map:generate') do |tag|
     raise TagError.new("`google_map:display' tag must contain a `div' attribute.") unless tag.attr.has_key?('div')
     raise TagError.new("`google_map:display' tag must contain a `name' attribute.") unless tag.attr.has_key?('name')
 
-    GoogleMap.generate_html(tag.attr['name'],tag.attr['div'])
+    GoogleMap.generate_html(tag.attr['name'],tag.attr['div'],tag.globals.page)
 
   end
 
