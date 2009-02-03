@@ -8,7 +8,9 @@ class GoogleMapsExtension < Radiant::Extension
   
   # define_routes do |map|
   #   map.namespace :admin, :member => { :remove => :get } do |admin|
-  #     admin.resources :google_maps
+  #     admin.resources :google_maps do |google_map|
+  #       google_map.resources :markers, ::member => { :remove => :get }
+  #     end
   #   end
   # end
   

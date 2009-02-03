@@ -15,7 +15,7 @@ class Marker < ActiveRecord::Base
   private
 
   def create_point
-    self.position= Point.from_x_y(self.longitude,self.latitude)
+    self.position = Point.from_x_y(self.longitude,self.latitude, 4326)
   end
 
 end

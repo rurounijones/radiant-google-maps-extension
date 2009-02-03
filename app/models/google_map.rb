@@ -31,7 +31,7 @@ class GoogleMap < ActiveRecord::Base
   private
 
   def create_point
-    self.center = Point.from_x_y(self.longitude,self.latitude)
+    self.center = Point.from_x_y(self.longitude,self.latitude, 4326)
   end
 
 end
