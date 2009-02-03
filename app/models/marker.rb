@@ -11,6 +11,9 @@ class Marker < ActiveRecord::Base
 
   validates_presence_of :name, :title, :latitude, :longitude, :message => 'required'
   validates_uniqueness_of :name, :message => 'name already in use'
+  validates_length_of :filter_id, :maximum => 25, :allow_nil => true, :message => '%d-character limit'
+
+  object_id_attr :filter, TextFilter
 
   private
 

@@ -12,7 +12,7 @@ class GoogleMap < ActiveRecord::Base
   validates_presence_of :name, :description, :center, :zoom, :latitude, :longitude, :message => 'required'
   validates_uniqueness_of :name, :message => 'name already in use'
   validates_numericality_of :zoom, :message => 'must be a number'  #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
-  
+
   def self.generate_html(name, div)
     
     @stored_map = GoogleMap.find_by_name(name, :include => :markers)
@@ -22,7 +22,11 @@ class GoogleMap < ActiveRecord::Base
 	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
 
     @stored_map.markers.each do |marker|
-	    @map.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => marker.content)
+      text = marker.content
+    #  text = parse(text)
+      text = marker.filter.filter(text) if marker.respond_to? :filter_id
+
+	    @map.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => text)
     end
 
     @map.to_html

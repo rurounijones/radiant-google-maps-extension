@@ -6,6 +6,7 @@ class CreateMarkers < ActiveRecord::Migration
       t.string :title, :null => false
       t.string :content
       t.column "position", :point, :null => false, :srid => 4326, :with_z => false # 4326: WSG84
+      t.column "filter_id", :string, :limit => 25
       t.datetime :created_at
       t.datetime :updated_at
       t.integer :created_by_id

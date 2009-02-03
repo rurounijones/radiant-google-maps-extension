@@ -31,6 +31,9 @@
     %p.content
       %label{:for=>"marker_content"} Content
       ~ f.text_area :content, :class => "textarea", :style => "width: 100%"
+    %p
+      %label{:for=>"marker_filter"} Filter
+      = f.select :filter_id, [['none', '']] + TextFilter.descendants.map { |f| f.filter_name }.sort, :id => 'marker_filter'
 
     = updated_stamp @marker
 
