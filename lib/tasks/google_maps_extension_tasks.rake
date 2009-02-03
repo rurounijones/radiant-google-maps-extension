@@ -31,6 +31,13 @@ namespace :radiant do
           mkdir_p RAILS_ROOT + directory
           cp file, RAILS_ROOT + path
         end
+
+        Dir[GoogleMapsExtension.root + "/vendor/plugins/ym4r_gm/javascript/*"].reject(&is_svn_or_dir).each do |file|
+          path = file.sub(GoogleMapsExtension.root + "/vendor/plugins/ym4r_gm/javascript/", '/public/javascripts/')
+          directory = File.dirname(path)
+          mkdir_p RAILS_ROOT + directory
+          cp file, RAILS_ROOT + path
+        end
       end  
     end
   end
