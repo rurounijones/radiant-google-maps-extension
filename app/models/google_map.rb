@@ -11,13 +11,11 @@ class GoogleMap < ActiveRecord::Base
 
   validates_presence_of :name, :description, :center, :zoom, :latitude, :longitude, :message => 'required'
   validates_uniqueness_of :name, :message => 'name already in use'
-  validates_numericality_of :zoom, :message => 'must be a number'  #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
-
-  def parse(text,context)
-   @context = PageContext.new(context)
-   @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
-  end
-
+  validates_numericality_of :zoom,  :only_integer => true,
+                                    :allow_nil => true,
+                                    :greater_than_or_equal_to => 0,
+                                    :less_than_or_equal_to => 17,
+                                    :message => 'must be an integer in the range 0 to 17 (inclusive)'  #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
 
   def self.generate_html(name, div,context)
     
