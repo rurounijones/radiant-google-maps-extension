@@ -25,9 +25,7 @@ class GoogleMapsDataset < Dataset::Base
       name = attributes[:name] || unique_google_map_name
       merged_attributes = {
         :name => name,
-        :description => 'test',
         :center => Point.from_x_y(attributes[:longitude],attributes[:latitude],4326),
-        :zoom => 15
       }.merge(attributes)
       
       merged_attributes.reject {|key, value| key == :latitude || key == :longitude }
