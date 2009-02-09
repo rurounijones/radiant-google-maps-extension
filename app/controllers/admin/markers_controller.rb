@@ -1,6 +1,10 @@
 class Admin::MarkersController < Admin::ResourceController
   model_class Marker
 
+  responses do |r|
+    r.destroy.default { redirect_to admin_google_map_url(params[:google_map_id]) }
+  end
+
   def index
     redirect_to admin_google_map_url(params[:google_map_id])
   end
@@ -16,9 +20,9 @@ class Admin::MarkersController < Admin::ResourceController
 
   def create
     @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = Marker.new(params[:marker])
+    @marker = @google_map.markers.new(params[:marker])
     @marker.created_by_id = current_user
-    @marker.save
+    @marker.save!
     announce_saved
     response_for :create
   end
@@ -41,4 +45,5 @@ class Admin::MarkersController < Admin::ResourceController
     @google_map = GoogleMap.find(params[:google_map_id])
     @marker = @google_map.markers.find(params[:id])
   end
+
 end

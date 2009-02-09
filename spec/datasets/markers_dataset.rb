@@ -1,8 +1,18 @@
 class MarkersDataset < Dataset::Base
 
   def load
-  create_marker "first", :google_map_id => 1, :title => "First Marker", :latitude => 0, :longitude => 0, :content => "test"
-  create_marker "markdown", :google_map_id => 1, :title => "Markdown Marker", :latitude => 0, :longitude => 0, :filter_id => "Markdown", :content => "**markdown**"
+    create_google_map "parent", :latitude => "0", :longitude => "0", :description => "test", :zoom => "15" do
+      create_marker "first", :title => "First Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "second", :title => "Second Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "third", :title => "Third Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "fourth", :title => "Fourth Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "fith", :title => "Fith Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "sixth", :title => "Sixth Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "seventh", :title => "Seventh Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "eighth", :title => "Eighth Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "ninth", :title => "Ninth Marker", :latitude => 0, :longitude => 0, :content => "test"
+      create_marker "markdown", :title => "Markdown Marker", :latitude => 0, :longitude => 0, :filter_id => "Markdown", :content => "**markdown**"
+    end
   end
 
   helpers do
@@ -10,12 +20,32 @@ class MarkersDataset < Dataset::Base
       create_record :marker, name.symbolize, marker_injection_params(attributes.reverse_merge(:name => name))
     end
 
+    def create_google_map(name, attributes={})
+      create_record :google_map, name.symbolize, google_map_injection_params(attributes.reverse_merge(:name => name))
+      symbol = name.symbolize
+      if block_given?
+        @current_google_map_id = google_map_id(symbol)
+        yield
+      end
+    end
+
+    def google_map_injection_params(attributes={})
+      name = attributes[:name] || unique_google_map_name
+      merged_attributes = {
+        :name => name,
+        :center => Point.from_x_y(attributes[:longitude],attributes[:latitude],4326),
+      }.merge(attributes)
+
+      merged_attributes.reject {|key, value| key == :latitude || key == :longitude }
+
+    end
+
     def marker_params(attributes={})
       name = attributes[:name] || unique_marker_name
       {
         :name => name,
         :title => "#{name} Title",
-        :google_map_id => 1,
+        :google_map_id => GoogleMap.first.id,
         :content => "Content",
         :latitude => 0,
         :longitude => 0
@@ -29,6 +59,7 @@ class MarkersDataset < Dataset::Base
         :name => name,
         :position => Point.from_x_y(attributes[:longitude],attributes[:latitude],4326),
       }.merge(attributes)
+      merged_attributes[:google_map_id] = @current_google_map_id
 
       merged_attributes.reject {|key, value| key == :latitude || key == :longitude }
 

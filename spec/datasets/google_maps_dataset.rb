@@ -1,8 +1,8 @@
 class GoogleMapsDataset < Dataset::Base
 
   def load
-  create_google_map "first", :latitude => "0", :longitude => "0", :description => "test", :zoom => "15"
-  create_google_map "parent", :latitude => "0", :longitude => "0", :description => "test", :zoom => "15"
+  create_google_map "first", :latitude => "0", :longitude => "0", :description => "First test", :zoom => "15"
+  create_google_map "second", :latitude => "0", :longitude => "0", :description => "Second test", :zoom => "15"
   end
 
   helpers do

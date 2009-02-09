@@ -5,17 +5,7 @@ Google Maps Extension
 This extension allows users to create google maps and the other objects which make up an modern interactive google map.
 It ONLY works with MySQL and PostgreSQL databases (and will for the forseeable future, depends on the spatial adapter).
 
-This has been unscientifically tested against Radiant edge (>7.0) with MySQL.
-
-### Here be Dragons
-
-This extension at the moment is probably not suited to production use unless you know what you are doing. "Why", do you ask?
-
-1, This is my first ever Radiant extension
-2. In terms of Red-Green-Refactor this extension is somewhere in the region of a dark crimson... blood red, if you will.
-3. It passes all tests...because there aren't any.
-
-Now if that hasn't frightened you off, by all means read on.
+This extension has been tested against Radiant 7.0 with MySQL and PostgreSQL.
 
 ###Requirements
 
@@ -27,19 +17,13 @@ Currently the rake tasks assume you are using the standard vendor/extensions dir
 
 ###Installation
 
-After downloading the extension run the following commands
+After downloading the extension  you may have to rename the directory to "google_maps" then run the following commands
 
   rake radiant:extensions:google_maps:api <- THIS MUST BE RUN FIRST (Or manually copy and rename the API key file)
   rake production radiant:extensions:google_maps:migrate
   rake production radiant:extensions:google_maps:update
 
 After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost)
-
-Add the following lines to your admin routes inside the RESTful :admin namespace
-
-       admin.resources :google_maps do |google_map|
-         google_map.resources :markers, ::member => { :remove => :get }
-       end
 
 ###Usage
 
