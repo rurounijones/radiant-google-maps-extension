@@ -3,14 +3,6 @@ class MarkersDataset < Dataset::Base
   def load
     create_google_map "parent", :latitude => "0", :longitude => "0", :description => "test", :zoom => "15" do
       create_marker "first", :title => "First Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "second", :title => "Second Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "third", :title => "Third Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "fourth", :title => "Fourth Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "fith", :title => "Fith Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "sixth", :title => "Sixth Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "seventh", :title => "Seventh Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "eighth", :title => "Eighth Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "ninth", :title => "Ninth Marker", :latitude => 0, :longitude => 0, :content => "test"
       create_marker "markdown", :title => "Markdown Marker", :latitude => 0, :longitude => 0, :filter_id => "Markdown", :content => "**markdown**"
     end
   end
