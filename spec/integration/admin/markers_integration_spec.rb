@@ -12,6 +12,7 @@ describe 'Markers' do
     lambda do
       submit_form :marker => {:name => 'Mine', :title => "Mine Title", :content => 'Mine Content', :latitude => 0, :longitude => 0}
     end.should change(Marker, :count).by(1)
+    response.should have_tag('#notice')
   end
 
   it "should display form errors" do

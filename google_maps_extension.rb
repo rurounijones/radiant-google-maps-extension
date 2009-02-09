@@ -15,6 +15,7 @@ class GoogleMapsExtension < Radiant::Extension
     admin.tabs.add "Maps", "/admin/google_maps", :after => "Layouts", :visibility => [:all]
     Page.send :include, GoogleMapsTags
     UserActionObserver.instance.send :add_observer!, GoogleMap
+    UserActionObserver.instance.send :add_observer!, Marker
   end
   
   def deactivate

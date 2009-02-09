@@ -13,37 +13,16 @@ class Admin::MarkersController < Admin::ResourceController
     redirect_to admin_google_map_url(params[:google_map_id])
   end
 
-  def new
+  protected
+
+  def model_class
     @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = Marker.new(nil)
+    @google_map.markers
   end
 
-  def create
-    @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = @google_map.markers.new(params[:marker])
-    @marker.created_by_id = current_user
-    @marker.save!
-    announce_saved
-    response_for :create
+  def continue_url(options)
+    options[:redirect_to] || (params[:continue] ? {:action => 'edit', :id => model.id} : admin_google_map_url(params[:google_map_id]))
   end
 
-  def edit
-    @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = @google_map.markers.find(params[:id])
-  end
-
-  def update
-    @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = @google_map.markers.find(params[:id])
-    @marker.updated_by_id = current_user
-    @marker.update_attributes!(params[:marker])
-    announce_saved
-    response_for :update
-  end
-
-  def remove
-    @google_map = GoogleMap.find(params[:google_map_id])
-    @marker = @google_map.markers.find(params[:id])
-  end
 
 end
