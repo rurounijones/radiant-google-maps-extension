@@ -28,8 +28,6 @@ map.addControl(new GMapTypeControl());
 </script>')  
   end
 
-
-
   private
 
   def page(symbol = nil)

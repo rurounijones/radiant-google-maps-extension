@@ -7,7 +7,7 @@ It ONLY works with MySQL and PostgreSQL databases (and will for the forseeable f
 
 This extension has been tested against Radiant 7.0 with MySQL and PostgreSQL.
 
-###Requirements
+### Requirements
 
 You need to install a version >= 0.1.1 of the GeoRuby gem (http://rubyforge.org/projects/georuby/)
 	gem install georuby
@@ -15,7 +15,7 @@ You need to install a version >= 0.1.1 of the GeoRuby gem (http://rubyforge.org/
 Currently the rake tasks assume you are using the standard vendor/extensions directory path, if no you will need to copy the assets manually
 (Including the Javascript files from the ym4r_gm directory)
 
-###Installation
+### Installation
 
 After downloading the extension  you may have to rename the directory to "google_maps" then run the following commands
 
@@ -23,14 +23,16 @@ After downloading the extension  you may have to rename the directory to "google
   rake production radiant:extensions:google_maps:migrate
   rake production radiant:extensions:google_maps:update
 
-After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost)
+After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost).
 
-###Usage
+Note for rails 2.2 - http://railsforum.com/viewtopic.php?id=24839
+
+### Usage
 
 Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects (Currently only GMarkers).
 Marker content can use filters and Radius tags.
 
-###Tags
+### Tags
 
 Two tags are created by the extension
 
@@ -42,7 +44,7 @@ This can be placed anywhere in your document. The "name" attribute is the name o
 
 Note that this extension does not create or size the div. This is left to the user for easier placement and sizing of div using CSS.
 
-###Thanks - Standing on the shoulders of giants
+### Thanks - Standing on the shoulders of giants
 
 The Radiant devs for continuing Radiant development and giving us a great CMS.
 Sean Cribbs for, as well as the above, putting up with my inane, easily answered questions in IRC.

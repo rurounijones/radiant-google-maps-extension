@@ -1,3 +1,10 @@
+- content_for 'page_css' do
+  :sass
+    #gmap
+      width: 100%
+      height: 400px
+
+=GMap.header
 - form_for [:admin, @google_map, @marker] do |f|
   = f.hidden_field :google_map_id, :class => 'textbox', :maxlength => 100, :value => @google_map.id
   .form-area
@@ -17,17 +24,24 @@
             %label{:for => "marker_latitude"} Latitude
           %td.field
             - if @marker.position.nil?
-              = f.text_field :latitude, :class => 'textbox', :maxlength => 100
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 10, :value => @google_map.center.y
             - else
-              = f.text_field :latitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.y
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 10, :value => @marker.position.y
         %tr
           %th.label
             %label{:for => "marker_longitude"} Longitude
           %td.field
             - if @marker.position.nil?
-              = f.text_field :longitude, :class => 'textbox', :maxlength => 100
+              = f.text_field :longitude, :class => 'textbox', :maxlength => 100, :value => @google_map.center.x
             - else
               = f.text_field :longitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.x
+        %tr
+          %th.label
+            %label
+              Manual Placement
+          %td.field
+            %div#gmap
+              = GoogleMap.generate_admin_html(@marker.google_map_id)
     %p.content
       %label{:for=>"marker_content"} Content
       ~ f.text_area :content, :class => "textarea", :style => "width: 100%"

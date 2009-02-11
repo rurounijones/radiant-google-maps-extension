@@ -37,6 +37,19 @@ class GoogleMap < ActiveRecord::Base
     @map.to_html
   end
 
+  def self.generate_admin_html(id)
+
+    @stored_map = GoogleMap.find(id)
+    @map = GMap.new('gmap')
+    @map.control_init(:large_map => true,:map_type => true)
+	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+
+    @marker= GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Drag me", :draggable => true)
+    @map.overlay_global_init(@marker, "marker")
+    @map.event_init(@marker,:dragend,'function() { var latlng = marker.getPoint(); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng(); }')
+    @map.to_html
+  end
+
   private
 
   def create_point
