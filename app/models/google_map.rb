@@ -37,7 +37,33 @@ class GoogleMap < ActiveRecord::Base
     @map.to_html
   end
 
-  def self.generate_admin_html(id)
+  def self.generate_admin_google_map_html(id)
+
+    @map = GMap.new('gmap')
+    @map.control_init(:large_map => true,:map_type => true)
+
+    begin
+      @stored_map = GoogleMap.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @stored_map = GoogleMap.new()
+      @stored_map.center = Point.from_x_y(0,0, 4326)
+      @stored_map.zoom = 3
+    end
+
+
+	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+
+    @marker= GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Map Center", :draggable => true)
+    @map.overlay_global_init(@marker, "marker")      
+
+    @map.event_init(@map, :dragend, 'function() { var latlng = map.getCenter() ; marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
+    @map.event_init(@map, 'singlerightclick', 'function(pixel,url,obj) { var latlng = map.fromContainerPixelToLatLng(pixel); map.panTo(latlng); marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
+    @map.event_init(@marker,:dragend,'function() { var latlng = marker.getPoint(); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng(); map.panTo(latlng); }')
+
+    @map.to_html
+  end
+
+  def self.generate_admin_google_map_marker_html(id)
 
     @stored_map = GoogleMap.find(id)
     @map = GMap.new('gmap')
@@ -47,6 +73,7 @@ class GoogleMap < ActiveRecord::Base
     @marker= GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Drag me", :draggable => true)
     @map.overlay_global_init(@marker, "marker")
     @map.event_init(@marker,:dragend,'function() { var latlng = marker.getPoint(); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng(); }')
+  
     @map.to_html
   end
 

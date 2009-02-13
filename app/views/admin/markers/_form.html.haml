@@ -41,7 +41,7 @@
               Manual Placement
           %td.field
             %div#gmap
-              = GoogleMap.generate_admin_html(@marker.google_map_id)
+              = GoogleMap.generate_admin_google_map_marker_html(@marker.google_map_id)
     %p.content
       %label{:for=>"marker_content"} Content
       ~ f.text_area :content, :class => "textarea", :style => "width: 100%"
