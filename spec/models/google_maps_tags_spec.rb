@@ -13,7 +13,7 @@ describe "Google Maps Tags" do
     
   end
   
-  it '<r:google_map:header /> should render the google map' do
+  it "<r:google_map:generate name='parent' div='mapDiv' /> with a valid map should render the google map" do
     page(:map)
     page.should render("<r:google_map:generate name='parent' div='mapDiv' />").as('<script type="text/javascript">
 var map;
@@ -26,6 +26,11 @@ map.addControl(new GMapTypeControl());
 }
 });
 </script>')  
+  end
+
+  it "<r:google_map:generate name='parent' div='mapDiv' /> with an invalid map should render a simple error message" do
+    page(:map)
+    page.should render("<r:google_map:generate name='nonexisting' div='mapDiv' />").as("<p>No map found with the name 'nonexisting'</p>")
   end
 
   private
