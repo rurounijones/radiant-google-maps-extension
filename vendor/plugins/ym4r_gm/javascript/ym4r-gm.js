@@ -115,3 +115,4 @@ if(self.Event && Event.observe){
 }else{
     window.onunload = GUnload;
 }
+

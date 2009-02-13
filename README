@@ -32,6 +32,19 @@ Note for rails 2.2 - http://railsforum.com/viewtopic.php?id=24839
 Once installed a new tab will be visible called "Maps". Here you can setup your maps and child objects (Currently only GMarkers).
 Marker content can use filters and Radius tags.
 
+When creating or editing a map you can use the map embedded in the form to set the lat/lon and zoom.
+- Use the zoom buttons set the soom value.
+- Right clicking on the map will set the map center.
+- Moving the marker manually will also set the map center.
+
+Currently updating the form fields themselves will not update the map to match
+- Right clicking on the map will set the marker position.
+- Moving the marker manually will also set the marker position.
+
+
+When creating or editing a marker you can use the map embedded in the form to set the lat/lon/
+
+
 ### Tags
 
 Two tags are created by the extension

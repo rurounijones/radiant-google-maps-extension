@@ -14,6 +14,14 @@ module Ym4r
         "new GLargeMapControl()"
       end
     end
+
+    class GAdminMapControl
+      include MappingObject
+      def create
+        "new GAdminMapControl()"
+      end
+    end
+
     #Small Zoom control. Report to the Google Maps API documentation for details.
     class GSmallZoomControl
       include MappingObject

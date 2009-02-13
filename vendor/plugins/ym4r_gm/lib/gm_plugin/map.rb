@@ -74,6 +74,7 @@ module Ym4r
       def control_init(controls = {})
         @init_end << add_control(GSmallMapControl.new) if controls[:small_map]
         @init_end << add_control(GLargeMapControl.new) if controls[:large_map]
+        @init_end << add_control(GAdminMapControl.new) if controls[:admin_map]
         @init_end << add_control(GSmallZoomControl.new) if controls[:small_zoom]
         @init_end << add_control(GScaleControl.new) if controls[:scale]
         @init_end << add_control(GMapTypeControl.new) if controls[:map_type]
@@ -98,7 +99,7 @@ module Ym4r
             @init << disableInfoWindow()
           end
         end
-        if !interface[:double_click_zoom].nil?
+        unless interface[:double_click_zoom].nil?
           if interface[:double_click_zoom]
             @init << enableDoubleClickZoom()
           else
@@ -112,7 +113,7 @@ module Ym4r
             @init << disableContinuousZoom()
           end
         end
-        if !interface[:scroll_wheel_zoom].nil?
+        unless interface[:scroll_wheel_zoom].nil?
           if interface[:scroll_wheel_zoom]
             @init << enableScrollWheelZoom()
           else

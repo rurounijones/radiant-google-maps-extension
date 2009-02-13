@@ -5,6 +5,7 @@
       height: 400px
 
 =GMap.header
+%script{ 'type' => "text/javascript", :src   => "/javascripts/admin/admin_map.js" }
 - form_for [:admin, @google_map] do |f|
   .form-area
     %p.title
