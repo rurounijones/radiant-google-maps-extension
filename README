@@ -24,8 +24,10 @@ After downloading the extension  you may have to rename the directory to "google
   rake production radiant:extensions:google_maps:update
 
 After this you will need to edit the config/gmaps_api_key.yml file with your Google Map API Key (Sample file has the key needed for localhost).
+The API key file must have entries for dev, test and production environments even if they are not being used.
 
-Note for rails 2.2 - http://railsforum.com/viewtopic.php?id=24839
+
+Note for rails 2.2 when the time comes - http://railsforum.com/viewtopic.php?id=24839
 
 ### Usage
 
@@ -41,9 +43,9 @@ Currently updating the form fields themselves will not update the map to match
 - Right clicking on the map will set the marker position.
 - Moving the marker manually will also set the marker position.
 
-
 When creating or editing a marker you can use the map embedded in the form to set the lat/lon/
 
+Using the map will update the form field values but not vice versa. If you wish to see an updated map based on new form field entries please "save and continue"
 
 ### Tags
 
@@ -61,7 +63,5 @@ Note that this extension does not create or size the div. This is left to the us
 
 The Radiant devs for continuing Radiant development and giving us a great CMS.
 Sean Cribbs for, as well as the above, putting up with my inane, easily answered questions in IRC.
-The makers of GeoRuby
-The makers of YM4R for making it easy to embed google maps into ruby on rails apps.
-The makers of the spatial adapter plugin
+The makers of GeoRuby, YM4R and the spatial adapter plugin for making it easy to embed google maps into ruby on rails apps.
 Everyone else involved in computer development down to Charles Babbage
