@@ -30,6 +30,7 @@ class GoogleMap < ActiveRecord::Base
       text = marker.content
       text = @parser.parse(text)
       text = marker.filter.filter(text) if marker.respond_to? :filter_id
+      text.gsub!('/', '\/')
 
 	    @map.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => text)
     end

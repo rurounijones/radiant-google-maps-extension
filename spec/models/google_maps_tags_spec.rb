@@ -21,7 +21,7 @@ window.onload = addCodeToFunction(window.onload,function() {
 if (GBrowserIsCompatible()) {
 map = new GMap2(document.getElementById("mapDiv"));
 map.setCenter(new GLatLng(0.0,0.0),15);map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(0.0,0.0),{title : "First Marker"}),"test",{}));
-map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(0.0,0.0),{title : "Markdown Marker"}),"<p><strong>markdown</strong></p>",{}));map.addControl(new GLargeMapControl());
+map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(0.0,0.0),{title : "Markdown Marker"}),"<p><strong>markdown<\/strong><\/p>",{}));map.addControl(new GLargeMapControl());
 map.addControl(new GMapTypeControl());
 }
 });
