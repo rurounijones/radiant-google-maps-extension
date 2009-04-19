@@ -17,13 +17,34 @@ class GoogleMap < ActiveRecord::Base
                                     :less_than_or_equal_to => 17,
                                     :message => 'must be an integer in the range 0 to 17 (inclusive)'  #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
 
-  def self.generate_html(name, div,context)
+  def self.generate_html(div,id,name,marker_id,marker_name,context)
     
-    @stored_map = GoogleMap.find_by_name(name, :include => :markers)
-    return "<p>No map found with the name '#{name}'</p>" if @stored_map == nil
+    begin
+      @stored_map = id ? GoogleMap.find(id, :include => :markers) : GoogleMap.find_by_name(name, :include => :markers)
+    rescue
+      return "<p>Map with id '#{id}' not found</p>"
+    end
+    return "<p>Map with name '#{name}' not found</p>" if @stored_map == nil
+
+    
+    if marker_id || marker_name
+      begin
+        @main_marker = marker_id ? @stored_map.markers.find(marker_id) : @stored_map.markers.find_by_name(marker_name)
+      rescue
+        return "<p>Marker with id '#{marker_id}' not found</p>"
+      end
+      return "<p>Marker with name '#{marker_name}' not found</p>" if @main_marker.nil?
+    end
+
     @map = GMap.new(div)
     @map.control_init(:large_map => true,:map_type => true)
-	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+	  
+    if @main_marker
+      @map.center_zoom_init([@main_marker.position.y,@main_marker.position.x],@stored_map.zoom)
+    else
+      @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+    end
+
     @context = PageContext.new(context)
     @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
     @stored_map.markers.each do |marker|

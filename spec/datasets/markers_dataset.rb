@@ -2,8 +2,8 @@ class MarkersDataset < Dataset::Base
 
   def load
     create_google_map "parent", :latitude => "0", :longitude => "0", :description => "test", :zoom => "15" do
-      create_marker "first", :title => "First Marker", :latitude => 0, :longitude => 0, :content => "test"
-      create_marker "markdown", :title => "Markdown Marker", :latitude => 0, :longitude => 0, :filter_id => "Markdown", :content => "**markdown**"
+      create_marker "first", :title => "First Marker", :latitude => 1, :longitude => 1, :content => "test"
+      create_marker "markdown", :title => "Markdown Marker", :latitude => 2, :longitude => 2, :filter_id => "Markdown", :content => "**markdown**"
     end
   end
 
