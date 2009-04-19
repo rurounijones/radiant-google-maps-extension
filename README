@@ -18,7 +18,7 @@ Currently the rake tasks assume you are using the standard vendor/extensions dir
 ### Radiant Compatibility
 
 Radiant < 0.6.9 - No version of this extension has been tested against this version of Radiant
-Radiant 0.7.1 - Version 1.1 of this is extension is the last Radiant 0.7.1 compatible version
+Radiant 0.7.1 - Version 1.2 of this is extension is the last Radiant 0.7.1 compatible version
 
 ### Installation
 
@@ -58,9 +58,14 @@ Two tags are created by the extension
 
 <r:google_map:header /> should be places in the <head> section of your page. This Radius tag creates the HTML JavaScript include tag with your API key necessary to run a google map.
 
-<google_map:generate name="Map Name" div="Div ID" />
+<google_map:generate div="Div ID" id="Map ID" name="Map Name" marker_id="Marker ID" marker_name="Marker Name" />
 
-This can be placed anywhere in your document. The "name" attribute is the name of the map you wish to create and the "div" attribute is the html ID of the div you wish to generate the map in.
+This can be placed anywhere in your document.
+
+The "div" attribute is the html ID of the div you wish to generate the map in.
+The "name" and "id" attribute is the name or ID of the map you wish to generate, only one is needed.
+
+The "marker_name" and "marker_id" attribute is the name or ID of the marker you wish to center the map on, only one is needed. These two attributes are optional; if they are not used the map center is used.
 
 Note that this extension does not create or size the div. This is left to the user for easier placement and sizing of div using CSS.
 

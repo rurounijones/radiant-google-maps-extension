@@ -14,7 +14,7 @@ describe 'GoogleMaps' do
   it 'should be able to create a new google_map' do
     navigate_to '/admin/google_maps/new'
     lambda do
-      submit_form :google_map => {:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0}
+      submit_form :google_map => {:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0, :style => 1}
     end.should change(GoogleMap, :count).by(1)
   end
 
@@ -28,7 +28,7 @@ describe 'GoogleMaps' do
 
   it "should redisplay the edit screen on 'Save & Continue Editing'" do
     navigate_to '/admin/google_maps/new'
-    submit_form :google_map => {:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0}, :continue => "Save and Continue"
+    submit_form :google_map => {:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0, :style => 1}, :continue => "Save and Continue"
     response.should have_tag('form')
     response.should have_tag('#notice')
     response.should have_text(/Test Map/)
@@ -48,7 +48,7 @@ describe 'GoogleMap as resource' do
   dataset :users
 
   before do
-    @google_map = GoogleMap.create!(:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0)
+    @google_map = GoogleMap.create!(:name => 'Mine', :description => 'Test Map', :latitude => 0, :longitude => 0, :zoom => 0, :style => 1)
   end
 
   it 'should require authentication' do

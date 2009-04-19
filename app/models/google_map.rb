@@ -9,13 +9,27 @@ class GoogleMap < ActiveRecord::Base
   before_validation :create_point
   attr_accessor :latitude, :longitude
 
-  validates_presence_of :name, :description, :center, :zoom, :latitude, :longitude, :message => 'required'
+  validates_presence_of :name, :description, :center, :zoom, :latitude, :longitude, :style,  :message => 'required'
   validates_uniqueness_of :name, :message => 'name already in use'
   validates_numericality_of :zoom,  :only_integer => true,
                                     :allow_nil => true,
                                     :greater_than_or_equal_to => 0,
                                     :less_than_or_equal_to => 17,
                                     :message => 'must be an integer in the range 0 to 17 (inclusive)'  #:latitude, :longitude - Active record cannot validate_numericality_of non-db fields
+
+  VALID_MAP_TYPE_NAMES = {
+  "Normal Map" => 1,
+  "Satellite Map" => 2,
+  "Hybrid Map" => 3
+  }
+
+  VALID_MAP_TYPES = {
+  GMapType::G_NORMAL_MAP => 1,
+  GMapType::G_SATELLITE_MAP => 2,
+  GMapType::G_HYBRID_MAP => 3
+  }
+
+
 
   def self.generate_html(div,id,name,marker_id,marker_name,context)
     
@@ -37,8 +51,8 @@ class GoogleMap < ActiveRecord::Base
     end
 
     @map = GMap.new(div)
+    @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
     @map.control_init(:large_map => true,:map_type => true)
-	  
     if @main_marker
       @map.center_zoom_init([@main_marker.position.y,@main_marker.position.x],@stored_map.zoom)
     else
@@ -70,6 +84,7 @@ class GoogleMap < ActiveRecord::Base
       @stored_map.zoom = 3
     end
 
+    @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
 
 	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
     @map.interface_init(:double_click_zoom => false, :scroll_wheel_zoom => false)
@@ -89,6 +104,7 @@ class GoogleMap < ActiveRecord::Base
 
     @stored_map = GoogleMap.find(id)
     @map = GMap.new('gmap')
+    @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
     @map.control_init(:large_map => true,:map_type => true)
 	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
 

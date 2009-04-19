@@ -26,6 +26,11 @@ describe GoogleMap do
     @model.errors.on(:center).should eql("required")
   end
 
+  it "should validate presence, numericality of style" do
+    assert_invalid :style, 'required', '', nil
+    assert_valid :style, '1','2','3'
+  end
+
   it "should validate uniqueness of name" do
     assert_invalid :name, 'first'
     assert_valid :name, 'just-a-test'

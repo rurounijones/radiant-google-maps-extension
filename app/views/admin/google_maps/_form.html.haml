@@ -47,6 +47,10 @@
           %td.field
             %div#gmap
               = GoogleMap.generate_admin_google_map_html(@google_map)
+    %div.row
+      %p
+        %label{:for => "google_map_style"} Map Style
+        = f.select :style, GoogleMap::VALID_MAP_TYPE_NAMES
     = updated_stamp @google_map
 
   %p.buttons
