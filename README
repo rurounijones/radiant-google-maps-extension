@@ -58,7 +58,7 @@ Two tags are created by the extension
 
 <r:google_map:header /> should be places in the <head> section of your page. This Radius tag creates the HTML JavaScript include tag with your API key necessary to run a google map.
 
-<google_map:generate div="Div ID" id="Map ID" name="Map Name" marker_id="Marker ID" marker_name="Marker Name" />
+<r:google_map:generate div="Div ID" id="Map ID" name="Map Name" marker_id="Marker ID" marker_name="Marker Name" />
 
 This can be placed anywhere in your document.
 
