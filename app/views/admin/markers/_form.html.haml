@@ -24,9 +24,9 @@
             %label{:for => "marker_latitude"} Latitude
           %td.field
             - if @marker.position.nil?
-              = f.text_field :latitude, :class => 'textbox', :maxlength => 10, :value => @google_map.center.y
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100, :value => @google_map.center.y
             - else
-              = f.text_field :latitude, :class => 'textbox', :maxlength => 10, :value => @marker.position.y
+              = f.text_field :latitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.y
         %tr
           %th.label
             %label{:for => "marker_longitude"} Longitude
