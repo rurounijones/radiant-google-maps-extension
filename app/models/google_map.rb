@@ -100,19 +100,32 @@ class GoogleMap < ActiveRecord::Base
     @map.to_html
   end
 
-  def self.generate_admin_google_map_marker_html(id)
+  def self.generate_admin_google_map_marker_html(id, marker_id)
 
     @stored_map = GoogleMap.find(id)
+    begin
+      @marker = Marker.find(marker_id)
+      @gmarker = GMarker.new([@marker.position.y,@marker.position.x],:title => "Drag me", :draggable => true)      
+    rescue
+      @gmarker = GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Drag me", :draggable => true)
+    end
     @map = GMap.new('gmap')
     @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
     @map.control_init(:large_map => true,:map_type => true)
-	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+	if @marker
+      @map.center_zoom_init([@marker.position.y,@marker.position.x],@stored_map.zoom)
+    else
+      @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)      
+    end
 
-    @marker= GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Drag me", :draggable => true)
-    @map.overlay_global_init(@marker, "marker")
+    @mapcenter = GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Map Center", :draggable => false)
+    @map.overlay_global_init(@mapcenter, "mapcenter")
+    @map.overlay_global_init(@gmarker, "marker")
+
+
 
     @map.event_init(@map, 'singlerightclick', 'function(pixel,url,obj) { var latlng = map.fromContainerPixelToLatLng(pixel); map.panTo(latlng); marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
-    @map.event_init(@marker,:dragend,'function() { var latlng = marker.getPoint(); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng(); }')
+    @map.event_init(@gmarker,:dragend,'function() { var latlng = marker.getPoint(); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng(); }')
   
     @map.to_html
   end
