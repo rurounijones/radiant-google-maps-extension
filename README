@@ -67,6 +67,12 @@ The "name" and "id" attribute is the name or ID of the map you wish to generate,
 
 The "marker_name" and "marker_id" attribute is the name or ID of the marker you wish to center the map on, only one is needed. These two attributes are optional; if they are not used the map center is used.
 
+You can use this extension with the location extension(http://github.com/adsmart/radiant-location-extension/tree/master)
+
+<r:google_map:generate div="Div ID" id="Map ID" name="Map Name" marker_id="Marker ID" marker_name="Marker Name">
+<r:location name"name of location from location extension"/>
+</r:google_map:generate>
+
 Note that this extension does not create or size the div. This is left to the user for easier placement and sizing of div using CSS.
 
 ### Thanks - Standing on the shoulders of giants

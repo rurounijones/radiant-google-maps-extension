@@ -31,7 +31,7 @@ class GoogleMap < ActiveRecord::Base
 
 
 
-  def self.generate_html(div,id,name,marker_id,marker_name,context)
+  def self.map(div,id,name,marker_id,marker_name,context)
     
     begin
       @stored_map = id ? GoogleMap.find(id, :include => :markers) : GoogleMap.find_by_name(name, :include => :markers)
@@ -70,7 +70,7 @@ class GoogleMap < ActiveRecord::Base
 	    @map.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => text)
     end
 
-    @map.to_html
+    @map
   end
 
   def self.generate_admin_google_map_html(id)

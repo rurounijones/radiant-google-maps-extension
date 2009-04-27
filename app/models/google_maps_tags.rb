@@ -31,8 +31,42 @@ module GoogleMapsTags
     raise TagError.new("`google_map:generate' tag must contain a `div' attribute.") unless tag.attr.has_key?('div')
     raise TagError.new("`google_map:generate' tag must contain a `name' or 'id' attribute.") unless tag.attr.has_key?('name') || tag.attr.has_key?('id')
 
-    GoogleMap.generate_html(tag.attr['div'],tag.attr['id'],tag.attr['name'],tag.attr['marker_id'],tag.attr['marker_name'],tag.globals.page)
+    map = GoogleMap.map(tag.attr['div'],tag.attr['id'],tag.attr['name'],tag.attr['marker_id'],tag.attr['marker_name'],tag.globals.page)
+    tag.locals.map = map
+    tag.expand
+    map.to_html
+  end
+  
+  desc %{
+    Adds a Location from the Locations Extension to the map. Specify either name or id of the location.
+
+    *Usage:*
+
+    <pre><code><r:google_map:generate:location [id="number"] [name="string"] ></code>></pre>
+
+  }
+  tag('google_map:generate:location') do |tag|
+    raise TagError.new("`google_map:generate' tag must contain a `name' or 'id' attribute.") unless tag.attr.has_key?('name') || tag.attr.has_key?('id')
+    map = tag.locals.map
+    location = Location.find_by_name(tag.attr['name'])
+    map.overlay_init GMarker.new([location.lat, location.lng],:title => location.title, :info_window => "info text")
 
   end
+  desc %{
+    Adds a Location from the GeoInfo Extension to the map. Specify either name or id of the location.
+
+    *Usage:*
+
+    <pre><code><r:google_map:generate:geolocation [id="number"] [name="string"] ></code>></pre>
+
+  }
+  tag('google_map:generate:geolocation') do |tag|
+    raise TagError.new("`google_map:generate' tag must contain a `name' or 'id' attribute.") unless tag.attr.has_key?('name') || tag.attr.has_key?('id')
+    map = tag.locals.map
+    location = GeoinfoLocation.find_by_name(tag.attr['name'])
+    map.overlay_init GMarker.new([location.lat, location.lng],:title => location.name, :info_window => "info text")
+
+  end
+
 
 end
