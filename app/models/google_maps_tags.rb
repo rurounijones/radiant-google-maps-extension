@@ -32,6 +32,7 @@ module GoogleMapsTags
     raise TagError.new("`google_map:generate' tag must contain a `name' or 'id' attribute.") unless tag.attr.has_key?('name') || tag.attr.has_key?('id')
 
     map = GoogleMap.map(tag.attr['div'],tag.attr['id'],tag.attr['name'],tag.attr['marker_id'],tag.attr['marker_name'],tag.globals.page)
+    return map if map.kind_of? String
     tag.locals.map = map
     tag.expand
     map.to_html
