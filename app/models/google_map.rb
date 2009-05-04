@@ -29,50 +29,6 @@ class GoogleMap < ActiveRecord::Base
   GMapType::G_HYBRID_MAP => 3
   }
 
-
-
-  def self.map(div,id,name,marker_id,marker_name,context)
-    
-    begin
-      @stored_map = id ? GoogleMap.find(id, :include => :markers) : GoogleMap.find_by_name(name, :include => :markers)
-    rescue
-      return "<p>Map with id '#{id}' not found</p>"
-    end
-    return "<p>Map with name '#{name}' not found</p>" if @stored_map == nil
-
-    
-    if marker_id || marker_name
-      begin
-        @main_marker = marker_id ? @stored_map.markers.find(marker_id) : @stored_map.markers.find_by_name(marker_name)
-      rescue
-        return "<p>Marker with id '#{marker_id}' not found</p>"
-      end
-      return "<p>Marker with name '#{marker_name}' not found</p>" if @main_marker.nil?
-    end
-
-    @map = GMap.new(div)
-    @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
-    @map.control_init(:large_map => true,:map_type => true)
-    if @main_marker
-      @map.center_zoom_init([@main_marker.position.y,@main_marker.position.x],@stored_map.zoom)
-    else
-      @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
-    end
-
-    @context = PageContext.new(context)
-    @parser = Radius::Parser.new(@context, :tag_prefix => 'r')
-    @stored_map.markers.each do |marker|
-      text = marker.content
-      text = @parser.parse(text)
-      text = marker.filter.filter(text) if marker.respond_to? :filter_id
-      text.gsub!('/', '\/')
-
-	    @map.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => text)
-    end
-
-    @map
-  end
-
   def self.generate_admin_google_map_html(id)
 
     @map = GMap.new('gmap')
