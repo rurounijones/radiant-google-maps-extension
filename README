@@ -18,7 +18,7 @@ Currently the rake tasks assume you are using the standard vendor/extensions dir
 ### Radiant Compatibility
 
 Radiant < 0.6.9 - No version of this extension has been tested against this version of Radiant
-Radiant 0.7.1 - Version 1.2 of this is extension is the last Radiant 0.7.1 compatible version
+Radiant 0.7.1 - Version 1.3 of this is extension is the last Radiant 0.7.1 compatible version at the time of writing
 
 ### Installation
 
