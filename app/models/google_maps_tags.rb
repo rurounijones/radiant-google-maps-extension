@@ -98,16 +98,6 @@ module GoogleMapsTags
       raise TagError.new("No marker found with name: #{name}") if main_marker.nil?
     end
     return main_marker
-
-
-    #  begin
-  #  puts "\nID: #{id}. Blank = #{id.blank?}"
-  #  puts "Name: #{name}"
-  #    main_marker = id.blank? ? map.markers.find_by_name(name) : map.markers.find(id)
-  #  rescue
-  #    raise TagError.new("No marker found with name: #{name}")
-  #  end
-  #  raise TagError.new("No marker found with name: #{name}") if main_marker == nil
   end
 
   def generate_initial_map_javascript(dbmap, dbmarker, div, context)
@@ -116,7 +106,7 @@ module GoogleMapsTags
     gmap.control_init(:large_map => true,:map_type => true)
 
     if dbmarker
-      gmap.center_zoom_init([dbmarker.position.y,dbmarker.position.x],dbmap.zoom)
+      gmap.center_zoom_init([dbmarker.position.y,dbmarker.position.x],dbmarker.zoom)
     else
       gmap.center_zoom_init([dbmap.center.y,dbmap.center.x],dbmap.zoom)
     end

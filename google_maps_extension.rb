@@ -1,5 +1,5 @@
 class GoogleMapsExtension < Radiant::Extension
-  version "1.2"
+  version "1.3"
   description "Allows you to embed google maps in your site"
   url "http://github.com/rurounijones/radiant-google-maps-extension/"
   

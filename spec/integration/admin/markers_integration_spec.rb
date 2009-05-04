@@ -10,7 +10,7 @@ describe 'Markers' do
   it 'should be able to create a new marker' do
     navigate_to "/admin/google_maps/#{google_map_id(:parent)}/markers/new"
     lambda do
-      submit_form :marker => {:name => 'Mine', :title => "Mine Title", :content => 'Mine Content', :latitude => 0, :longitude => 0}
+      submit_form :marker => {:name => 'Mine', :title => "Mine Title", :content => 'Mine Content', :latitude => 0, :longitude => 0, :zoom => 5}
     end.should change(Marker, :count).by(1)
     response.should have_tag('#notice')
   end
@@ -25,7 +25,7 @@ describe 'Markers' do
 
   it "should redisplay the edit screen on 'Save & Continue Editing'" do
     navigate_to "/admin/google_maps/#{google_map_id(:parent)}/markers/new"
-    submit_form :marker => {:name => 'Mine', :title => "Mine Title", :content => "Mine Content", :latitude => 0, :longitude => 0}, :continue => "Save and Continue"
+    submit_form :marker => {:name => 'Mine', :title => "Mine Title", :content => "Mine Content", :latitude => 0, :longitude => 0, :zoom => 5}, :continue => "Save and Continue"
     response.should have_tag('form')
     response.should have_tag('#notice')
     response.should have_text(/Mine Title/)
@@ -45,7 +45,7 @@ describe 'Marker as resource' do
   dataset :users, :markers
 
   before do
-    @marker = Marker.create!(:name => 'Mine', :title => "Mine Title", :content => "Mine Content", :latitude => 0, :longitude => 0, :google_map_id => google_map_id(:parent))
+    @marker = Marker.create!(:name => 'Mine', :title => "Mine Title", :content => "Mine Content", :latitude => 0, :longitude => 0, :zoom => 5,  :google_map_id => google_map_id(:parent))
   end
 
   it 'should require authentication' do

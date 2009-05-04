@@ -60,13 +60,13 @@ map.addControl(new GMapTypeControl());
 </script>')
   end
 
-  it "<r:google_map:generate div='mapDiv' name='parent' marker_name='first' /> (valid map and marker name) should render the google map centered on the marker" do
+  it "<r:google_map:generate div='mapDiv' name='parent' marker_name='first' /> (valid map and marker name) should render the google map centered and zoomed on the marker" do
     page.should render("<r:google_map:generate name='parent' div='mapDiv' marker_name='first' />").as('<script type="text/javascript">
 var map;
 window.onload = addCodeToFunction(window.onload,function() {
 if (GBrowserIsCompatible()) {
 map = new GMap2(document.getElementById("mapDiv"));
-map.setCenter(new GLatLng(1.0,1.0),15);map.setMapType(G_NORMAL_MAP);
+map.setCenter(new GLatLng(1.0,1.0),5);map.setMapType(G_NORMAL_MAP);
 map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(1.0,1.0),{title : "First Marker"}),"test",{}));
 map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(2.0,2.0),{title : "Markdown Marker"}),"<p><strong>markdown<\/strong><\/p>",{}));map.addControl(new GLargeMapControl());
 map.addControl(new GMapTypeControl());
@@ -75,13 +75,13 @@ map.addControl(new GMapTypeControl());
 </script>')
   end
 
-  it "<r:google_map:generate div='mapDiv' name='parent' marker_id='1' /> (valid map and marker id) should render the google map centered on the marker" do
+  it "<r:google_map:generate div='mapDiv' name='parent' marker_id='1' /> (valid map and marker id) should render the google map centered and zoomed on the marker" do
     page.should render("<r:google_map:generate name='parent' div='mapDiv' marker_name='first' />").as('<script type="text/javascript">
 var map;
 window.onload = addCodeToFunction(window.onload,function() {
 if (GBrowserIsCompatible()) {
 map = new GMap2(document.getElementById("mapDiv"));
-map.setCenter(new GLatLng(1.0,1.0),15);map.setMapType(G_NORMAL_MAP);
+map.setCenter(new GLatLng(1.0,1.0),5);map.setMapType(G_NORMAL_MAP);
 map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(1.0,1.0),{title : "First Marker"}),"test",{}));
 map.addOverlay(addInfoWindowToMarker(new GMarker(new GLatLng(2.0,2.0),{title : "Markdown Marker"}),"<p><strong>markdown<\/strong><\/p>",{}));map.addControl(new GLargeMapControl());
 map.addControl(new GMapTypeControl());

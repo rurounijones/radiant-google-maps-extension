@@ -40,4 +40,9 @@ describe Marker do
     @model.filter.should be_kind_of(MarkdownFilter)
   end
 
+  it "should validate presence, numericality and range of zoom" do
+    assert_invalid :zoom, 'required', '', nil
+    assert_invalid :zoom, 'must be an integer in the range 0 to 17 (inclusive)', ' ', '-1', '18', '3.5'
+  end  
+
 end

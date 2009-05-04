@@ -5,6 +5,7 @@
       height: 400px
 
 =GMap.header
+%script{ 'type' => "text/javascript", :src   => "/javascripts/admin/admin_map.js" }
 - form_for [:admin, @google_map, @marker] do |f|
   = f.hidden_field :google_map_id, :class => 'textbox', :maxlength => 100, :value => @google_map.id
   .form-area
@@ -37,16 +38,21 @@
               = f.text_field :longitude, :class => 'textbox', :maxlength => 100, :value => @marker.position.x
         %tr
           %th.label
+            %label{:for => "marker_zoom"} Zoom level
+          %td.field
+            = f.text_field :zoom, :class => 'textbox', :maxlength => 100              
+        %tr
+          %th.label
             %label
               Manual Placement
           %td.field
             %div#gmap
-              = GoogleMap.generate_admin_google_map_marker_html(@marker.google_map_id,@marker)
+            = GoogleMap.generate_admin_google_map_marker_html(@marker.google_map_id,@marker)
     %p.content
       %label{:for=>"marker_content"} Content
       ~ f.text_area :content, :class => "textarea", :style => "width: 100%"
     %p
-      %label{:for=>"marker_filter"} Filter
+      %label{:for=>"marker_filter_id"} Filter
       = f.select :filter_id, [['none', '']] + TextFilter.descendants.map { |f| f.filter_name }.sort, :id => 'marker_filter'
 
     = updated_stamp @marker

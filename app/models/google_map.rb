@@ -42,14 +42,13 @@ class GoogleMap < ActiveRecord::Base
 
     @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
 
-	  @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
+	@map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)
     @map.interface_init(:double_click_zoom => false, :scroll_wheel_zoom => false)
     @map.control_init(:admin_map => true, :map_type => true)
 
     @marker= GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Map Center", :draggable => true)
     @map.overlay_global_init(@marker, "marker")      
 
-    #@map.event_init(@map, :dragend, 'function() { var latlng = map.getCenter() ; marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
     @map.event_init(@map, 'singlerightclick', 'function(pixel,url,obj) { var latlng = map.fromContainerPixelToLatLng(pixel); map.panTo(latlng); marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
     @map.event_init(@marker,:dragend,'function() { var latlng = marker.getPoint(); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng(); map.panTo(latlng); }')
     
@@ -67,20 +66,23 @@ class GoogleMap < ActiveRecord::Base
     end
     @map = GMap.new('gmap')
     @map.set_map_type_init(VALID_MAP_TYPES.index(@stored_map.style))
-    @map.control_init(:large_map => true,:map_type => true)
+
+    
 	if @marker
-      @map.center_zoom_init([@marker.position.y,@marker.position.x],@stored_map.zoom)
+      @map.center_zoom_init([@marker.position.y,@marker.position.x],@marker.zoom)
     else
       @map.center_zoom_init([@stored_map.center.y,@stored_map.center.x],@stored_map.zoom)      
     end
+
+    @map.interface_init(:double_click_zoom => false, :scroll_wheel_zoom => false)
+    @map.control_init(:admin_map => true, :map_type => true)
+
 
     @mapcenter = GMarker.new([@stored_map.center.y,@stored_map.center.x],:title => "Map Center", :draggable => false)
     @map.overlay_global_init(@mapcenter, "mapcenter")
     @map.overlay_global_init(@gmarker, "marker")
 
-
-
-    @map.event_init(@map, 'singlerightclick', 'function(pixel,url,obj) { var latlng = map.fromContainerPixelToLatLng(pixel); map.panTo(latlng); marker.setPoint(latlng); $("google_map_latitude").value = latlng.lat(); $("google_map_longitude").value = latlng.lng();}' )
+    @map.event_init(@map, 'singlerightclick', 'function(pixel,url,obj) { var latlng = map.fromContainerPixelToLatLng(pixel); map.panTo(latlng); marker.setPoint(latlng); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng();}' )
     @map.event_init(@gmarker,:dragend,'function() { var latlng = marker.getPoint(); $("marker_latitude").value = latlng.lat(); $("marker_longitude").value = latlng.lng(); }')
   
     @map.to_html
