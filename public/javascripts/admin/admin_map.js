@@ -1,5 +1,6 @@
 // Sets the zoon field value based on the map value
 function SetZoomFieldValue(map){
+
   if ($('google_map_zoom') == undefined) {
     $('marker_zoom').value = map.getZoom();
   }
@@ -7,6 +8,7 @@ function SetZoomFieldValue(map){
   {
     $('google_map_zoom').value = map.getZoom();
   }
+}
 
 // Custom zoom that also update the form field
 function GAdminMapControl() {
