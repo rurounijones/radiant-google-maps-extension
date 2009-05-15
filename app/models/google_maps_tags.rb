@@ -112,13 +112,13 @@ module GoogleMapsTags
     end
 
     pagecontext = PageContext.new(context)
-    parser = Radius::Parser.new(context, :tag_prefix => 'r')
+    parser = Radius::Parser.new(pagecontext, :tag_prefix => 'r')
 
     dbmap.markers.each do |marker|
       text = marker.content
       text = parser.parse(text)
       text = marker.filter.filter(text) if marker.respond_to? :filter_id
-      text.gsub!('/', '\/')
+      text.gsub!('/', '\/') unless marker.respond_to? :filter_id
 	  gmap.overlay_init GMarker.new([marker.position.y, marker.position.x],:title => marker.title, :info_window => text)
     end
 
