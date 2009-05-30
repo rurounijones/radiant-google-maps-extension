@@ -14,7 +14,7 @@ module GoogleMapsTags
 
     <pre><code><r:google_map:header /></code></pre>
   }
-  tag('google_map:header') { |tag| GMap.header }
+  tag('google_map:header') { |tag| GMap.header(:host => request.host) }
 
 
   desc %{

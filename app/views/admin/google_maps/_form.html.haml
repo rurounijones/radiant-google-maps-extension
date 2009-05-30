@@ -4,7 +4,7 @@
       width: 100%
       height: 400px
 
-=GMap.header
+=GMap.header(:host => request.host)
 %script{ 'type' => "text/javascript", :src   => "/javascripts/admin/admin_map.js" }
 - form_for [:admin, @google_map] do |f|
   .form-area
