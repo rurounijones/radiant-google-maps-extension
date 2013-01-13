@@ -1,5 +1,10 @@
 Google Maps Extension
 
+## Current Status
+
+This project is inactive and only works on an old version of Radiant-CMS. Check forks by other contributors for 
+newer versions.
+
 ### Introduction
 
 This extension allows users to create google maps and the other objects which make up an modern interactive google map.
